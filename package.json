@@ -18,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/colemanmatey/website/issues"
   },
-  "homepage": "https://github.com/colemanmatey/website#readme"
+  "homepage": "https://github.com/colemanmatey/website#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.64.0"
+  }
 }

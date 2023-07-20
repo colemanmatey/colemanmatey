@@ -1,0 +1,8 @@
+### Node ###
+
+# Dependency directories
+node_modules/
+
+# Distribution / packaging
+build/
+dist/
