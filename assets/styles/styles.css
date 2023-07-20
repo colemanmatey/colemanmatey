@@ -228,6 +228,11 @@ b.light-color {
 3. MAIN SECTION
 --------------------------------- */
 
+.logo {
+	width: 8vw;
+	margin: 0 auto;
+}
+
 .main-area-wrapper {
 	height: calc(100% - 40px);
 	padding: 20px;
