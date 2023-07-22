@@ -3,7 +3,7 @@
 "use strict";
 
 // Imports
-const { src, dest, watch } = require("gulp");
+const { src, dest, series, parallel, watch } = require("gulp");
 const autoprefixer = require("gulp-autoprefixer");
 const cssnano = require("cssnano");
 const clean = require("gulp-clean");
@@ -63,14 +63,18 @@ function copyHTML() {
 
 // Clean build folders
 function cleanup() {
-	return src(["build", "dist"], {read: false})
+	return src(["build", "dist"], {
+			read: false, 
+			allowEmpty: true
+		})
 		.pipe(clean())
 }
 
 // Monitor file changes
 function monitor() {
-	watch(paths.source.sass, transpileSass);
-	watch(paths.source.css, minifyCSS);
+	watch(paths.source.sass, transpileSass)
+	watch(paths.source.css, minifyCSS)
+	watch(paths.source.html, copyHTML)
 }
 
 // Exports
@@ -78,4 +82,11 @@ exports.transpileSass = transpileSass;
 exports.minifyCSS = minifyCSS;
 exports.copyHTML = copyHTML;
 exports.cleanup = cleanup;
+exports.build = series(
+	cleanup,
+	parallel(
+		copyHTML, 
+		series(transpileSass, minifyCSS)
+	)
+)
 exports.monitor = monitor;
