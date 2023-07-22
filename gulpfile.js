@@ -6,6 +6,7 @@
 const { src, dest, watch } = require("gulp");
 const autoprefixer = require("gulp-autoprefixer");
 const cssnano = require("cssnano");
+const clean = require("gulp-clean");
 const htmlmin = require("gulp-htmlmin");
 const postcss = require("gulp-postcss");
 const rename = require("gulp-rename");
@@ -60,6 +61,12 @@ function copyHTML() {
 		.pipe(dest(paths.dist.html))
 }
 
+// Clean build folders
+function cleanup() {
+	return src(["build", "dist"], {read: false})
+		.pipe(clean())
+}
+
 // Monitor file changes
 function monitor() {
 	watch(paths.source.sass, transpileSass);
@@ -70,4 +77,5 @@ function monitor() {
 exports.transpileSass = transpileSass;
 exports.minifyCSS = minifyCSS;
 exports.copyHTML = copyHTML;
+exports.cleanup = cleanup;
 exports.monitor = monitor;
