@@ -99,6 +99,7 @@ exports.cleanup = cleanup;
 exports.monitor = monitor;
 exports.livepreview = livepreview;
 
+// Build task
 exports.build = series(
 	cleanup,
 	parallel(
@@ -107,6 +108,7 @@ exports.build = series(
 	)
 );
 
+// Default task
 exports.default = series(
 	exports.build,
 	livepreview	
