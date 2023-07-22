@@ -20,9 +20,11 @@
   },
   "homepage": "https://github.com/colemanmatey/website#readme",
   "devDependencies": {
+    "cssnano": "^6.0.1",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-postcss": "^9.0.1",
+    "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^3.0.0",
     "postcss": "^8.4.27",

@@ -5,7 +5,9 @@
 // Imports
 const { src, dest, watch } = require("gulp");
 const autoprefixer = require("gulp-autoprefixer");
+const cssnano = require("cssnano");
 const postcss = require("gulp-postcss");
+const rename = require("gulp-rename");
 const sass = require("gulp-sass")(require("sass"));
 const sourcemaps = require("gulp-sourcemaps");
 
@@ -13,6 +15,7 @@ const sourcemaps = require("gulp-sourcemaps");
 let paths = {
 	source: {
 		sass: "./src/assets/styles/sass/**/*.scss",
+		css: "./build/**/*.css"
 	},
 	build: {
 		css: "./build/css",
@@ -32,11 +35,26 @@ function transpileSass() {
 		.pipe(dest(paths.build.css));
 }
 
+// Minify CSS
+function minifyCSS() {
+	return src(paths.source.css)
+		.pipe(sourcemaps.init())
+		.pipe(postcss([cssnano()]))
+		.pipe(rename({
+			dirname: ".",
+			extname: ".min.css"
+		}))
+		.pipe(sourcemaps.write("."))
+		.pipe(dest(paths.dist.css));
+}
+
 // Monitor file changes
 function monitor() {
-	return watch(paths.source.sass, transpileSass);
+	watch(paths.source.sass, transpileSass);
+	watch(paths.source.css, minifyCSS);
 }
 
 // Exports
 exports.transpileSass = transpileSass;
+exports.minifyCSS = minifyCSS;
 exports.monitor = monitor;
