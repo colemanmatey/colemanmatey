@@ -11,6 +11,7 @@ const clean = require("gulp-clean");
 const htmlmin = require("gulp-htmlmin");
 const postcss = require("gulp-postcss");
 const rename = require("gulp-rename");
+const replace = require("gulp-replace");
 const sass = require("gulp-sass")(require("sass"));
 const sourcemaps = require("gulp-sourcemaps");
 
@@ -59,6 +60,7 @@ function copyHTML() {
 	return src(paths.source.html)
 		.pipe(dest(paths.build.html))
 		.pipe(htmlmin({collapseWhitespace: true}))
+		.pipe(replace("main.css", "main.min.css"))
 		.pipe(dest(paths.dist.html))
 }
 
@@ -84,7 +86,7 @@ function livepreview() {
         server: {
             baseDir: "./build",
         },
-		browser: ["chrome"]
+		browser: ["chrome"],
     });
 	monitor();
 }
