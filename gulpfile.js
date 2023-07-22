@@ -73,20 +73,20 @@ function cleanup() {
 
 // Monitor file changes
 function monitor() {
-	watch(paths.source.sass, transpileSass)
-	watch(paths.source.css, minifyCSS)
-	watch(paths.source.html, copyHTML)
+	watch(paths.source.sass, transpileSass).on('change', browserSync.reload)
+	watch(paths.source.css, minifyCSS).on('change', browserSync.reload)
+	watch(paths.source.html, copyHTML).on('change', browserSync.reload)
 }
 
 // Preview build
-function livePreview() {
+function livepreview() {
 	browserSync.init({
         server: {
             baseDir: "./build",
         },
 		browser: ["chrome"]
     });
-
+	monitor();
 }
 
 // Exports
@@ -95,7 +95,7 @@ exports.minifyCSS = minifyCSS;
 exports.copyHTML = copyHTML;
 exports.cleanup = cleanup;
 exports.monitor = monitor;
-exports.livePreview = livePreview;
+exports.livepreview = livepreview;
 
 exports.build = series(
 	cleanup,
@@ -103,5 +103,9 @@ exports.build = series(
 		copyHTML, 
 		series(transpileSass, minifyCSS)
 	)
-)
+);
 
+exports.default = series(
+	exports.build,
+	livepreview	
+)
