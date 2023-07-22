@@ -5,6 +5,7 @@
 // Imports
 const { src, dest, series, parallel, watch } = require("gulp");
 const autoprefixer = require("gulp-autoprefixer");
+const browserSync = require("browser-sync").create()
 const cssnano = require("cssnano");
 const clean = require("gulp-clean");
 const htmlmin = require("gulp-htmlmin");
@@ -77,11 +78,25 @@ function monitor() {
 	watch(paths.source.html, copyHTML)
 }
 
+// Preview build
+function livePreview() {
+	browserSync.init({
+        server: {
+            baseDir: "./build",
+        },
+		browser: ["chrome"]
+    });
+
+}
+
 // Exports
 exports.transpileSass = transpileSass;
 exports.minifyCSS = minifyCSS;
 exports.copyHTML = copyHTML;
 exports.cleanup = cleanup;
+exports.monitor = monitor;
+exports.livePreview = livePreview;
+
 exports.build = series(
 	cleanup,
 	parallel(
@@ -89,4 +104,4 @@ exports.build = series(
 		series(transpileSass, minifyCSS)
 	)
 )
-exports.monitor = monitor;
+

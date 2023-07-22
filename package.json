@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/colemanmatey/website#readme",
   "devDependencies": {
+    "browser-sync": "^2.29.3",
     "cssnano": "^6.0.1",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
