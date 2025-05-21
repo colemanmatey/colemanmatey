@@ -1,16 +1,20 @@
-## Hi there 👋
+## Coleman Matey
 
-<!--
-**colemanmatey/colemanmatey** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+This is a project designed to showcase my professional background, skills, and selected projects. The site is intended to be an online resume and contact point for potential employers, collaborators, and clients.
 
-Here are some ideas to get you started:
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## 📦 Project Status
+
+> **Current Phase:** Planning & Setup  
+> Work is being tracked using Agile practices in Azure DevOps. The initial backlog has been created and sprint planning is in progress.
+
+
+## 🧑‍💼 Author
+
+**Coleman Matey**
+[me@colemanmatey.com] | [LinkedIn](https://linkedin.com/in/colemanmatey) | [GitHub](https://github.com/colemanmatey)
+
+
+## 📄 License
+
+This project will be open-sourced under the [MIT License](LICENSE) once development begins.
