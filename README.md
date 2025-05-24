@@ -44,7 +44,7 @@ This is a project designed to showcase my professional background, skills, and s
 
 ## 🧑‍💼 Author
 
-**[Your Name]**
+**Coleman Matey**
 [me@colemanmatey.com] | [LinkedIn](https://linkedin.com/colemanmatey) | [GitHub](https://github.com/colemanmatey)
 
 ---
