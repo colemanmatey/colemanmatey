@@ -1,0 +1,19 @@
+/* 
+Hero styles 
+*/
+.hero {
+    @apply bg-cyan-800 text-white py-52 text-center;
+}
+
+.hero-title {
+    @apply text-4xl font-bold mb-4;
+}
+
+.hero-content {
+    @apply text-2xl mb-6;
+}
+
+.explore-btn {
+    @apply bg-white cursor-pointer text-cyan-900 px-6 py-3 rounded-full font-semibold;
+    @apply hover:bg-gray-500 hover:text-white transition duration-300;
+}

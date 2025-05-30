@@ -1,20 +1,10 @@
-## Coleman Matey
-
-This is a project designed to showcase my professional background, skills, and selected projects. The site is intended to be an online resume and contact point for potential employers, collaborators, and clients.
-
+## Welcome to my code lair!
+Here you will get to know me and browse through projects I am working on. Feel free to provide feedback or suggestions on what you discover. If you want to collaborate with me on a project, I am always open to learning new stuff and upgrading my skillset. 
 
 ## 📦 Project Status
 
-> **Current Phase:** Planning & Setup  
-> Work is being tracked using Agile practices in Azure DevOps. The initial backlog has been created and sprint planning is in progress.
+> **Current Project: My website** 
+> Work is in progress.
 
-
-## 🧑‍💼 Author
-
-**Coleman Matey**
-[me@colemanmatey.com] | [LinkedIn](https://linkedin.com/in/colemanmatey) | [GitHub](https://github.com/colemanmatey)
-
-
-## 📄 License
-
-This project will be open-sourced under the [MIT License](LICENSE) once development begins.
+## 🧑‍💼Socials
+[BlueSky](@colemanmatey.bsky.social)
