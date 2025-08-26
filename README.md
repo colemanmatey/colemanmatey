@@ -1,12 +1,47 @@
-# React + Vite
+# Personal Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the source code for my personal website.  
+It’s a space where I showcase my portfolio, highlight projects I’ve worked on, and share information about me.  
 
-Currently, two official plugins are available:
+Built with **React** and **Tailwind CSS**, the site is designed to be fast, responsive, and easy to maintain.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tech Stack
+- [React](https://reactjs.org/) – Frontend framework  
+- [Vite](https://vitejs.dev/) – Fast development & build tool  
+- [Tailwind CSS](https://tailwindcss.com/) – Utility-first CSS styling  
 
-## Expanding the ESLint configuration
+## 📂 Features
+- Portfolio showcase  
+- Project highlights  
+- Responsive design  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📦 Getting Started
+
+Clone the repo and install dependencies:
+
+```bash
+git clone https://github.com/colemanmatey/colemanmatey.git
+cd colemanmatey
+npm install
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+Preview production build:
+
+```bash
+npm run preview
+```
+
+## 📄 License
+This project is licensed under the [MIT License](LICENSE).
