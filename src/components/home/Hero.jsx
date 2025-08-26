@@ -1,8 +1,8 @@
 import Button from "../common/Button";
 
 function Hero() {
-	const scrollToAbout = () => {
-		document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+	const scrollToProjects = () => {
+		document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
 	};
 
 	return (
@@ -15,18 +15,33 @@ function Hero() {
 			</div>
 			
 			<div className="relative z-10 text-center max-w-4xl mx-auto w-full">
-				{/* Avatar placeholder */}
-				<div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-6 sm:mb-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white border-opacity-30">
-					<span className="text-2xl sm:text-4xl font-bold text-white">CM</span>
+				{/* GitHub Profile Photo */}
+				<div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 mx-auto mb-6 sm:mb-8 rounded-full overflow-hidden border-4 border-white border-opacity-30 backdrop-blur-sm shadow-xl">
+					<img 
+						src="https://github.com/colemanmatey.png"
+						alt="Coleman Matey - Profile Photo"
+						className="w-full h-full object-cover"
+						onError={(e) => {
+							// Fallback to initials if image fails to load
+							e.target.style.display = 'none';
+							e.target.nextSibling.style.display = 'flex';
+						}}
+					/>
+					<div 
+						className="w-full h-full bg-white bg-opacity-20 rounded-full hidden items-center justify-center backdrop-blur-sm"
+						style={{ display: 'none' }}
+					>
+						<span className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">CM</span>
+					</div>
 				</div>
 				
-				<h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent animate-fade-in leading-tight">
+				<h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent animate-fade-in leading-tight">
 					Hi, I'm Coleman Matey
 				</h1>
-				<p className="text-lg sm:text-xl md:text-2xl mb-3 sm:mb-4 text-cyan-100 font-light px-4">
+				<p className="text-lg sm:text-xl md:text-2xl mb-4 text-cyan-100 font-light px-4">
 					Full Stack Developer & Problem Solver
 				</p>
-				<p className="text-base sm:text-lg mb-6 sm:mb-8 text-cyan-200 max-w-2xl mx-auto leading-relaxed px-4">
+				<p className="text-base sm:text-lg mb-8 sm:mb-10 text-cyan-200 max-w-3xl mx-auto leading-relaxed px-4">
 					I create beautiful, functional web applications that solve real-world problems. 
 					Passionate about clean code, user experience, and continuous learning.
 				</p>
@@ -35,7 +50,7 @@ function Hero() {
 					<Button 
 						text="Explore My Work" 
 						style="w-full sm:w-auto bg-white text-cyan-900 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:bg-cyan-100 hover:scale-105 transition-all duration-300 shadow-lg cursor-pointer text-center"
-						onClick={scrollToAbout}
+						onClick={scrollToProjects}
 					/>
 					<Button 
 						text="Get In Touch" 

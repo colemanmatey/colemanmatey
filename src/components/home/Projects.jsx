@@ -1,89 +1,111 @@
 function Projects() {
-	const projects = [
-		{
-			title: "E-Commerce Platform",
-			description: "A full-stack e-commerce solution built with React, Node.js, and MongoDB. Features include user authentication, payment processing, and admin dashboard.",
-			technologies: ["React", "Node.js", "MongoDB", "Stripe", "Tailwind CSS"],
-			image: "🛒",
-			liveUrl: "#",
-			githubUrl: "#"
-		},
-		{
-			title: "Task Management App",
-			description: "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-			technologies: ["React", "Express", "Socket.io", "PostgreSQL", "Material-UI"],
-			image: "📋",
-			liveUrl: "#",
-			githubUrl: "#"
-		},
-		{
-			title: "Weather Dashboard",
-			description: "A responsive weather application that provides current conditions, forecasts, and weather maps using external APIs.",
-			technologies: ["JavaScript", "Weather API", "Chart.js", "CSS3", "HTML5"],
-			image: "🌤️",
-			liveUrl: "#",
-			githubUrl: "#"
-		},
-		{
-			title: "Portfolio Website",
-			description: "A modern, responsive portfolio website showcasing my work and skills. Built with React and deployed on GitHub Pages.",
-			technologies: ["React", "Vite", "Tailwind CSS", "GitHub Pages"],
-			image: "💼",
-			liveUrl: "#",
-			githubUrl: "#"
-		}
-	];
+	const projects = [];
 
 	return (
-		<section id="projects" className="py-12 sm:py-16 md:py-20 px-4 bg-white">
-			<div className="max-w-6xl mx-auto">
-				<div className="text-center mb-12 sm:mb-16">
-					<h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-4">Featured Projects</h2>
-					<div className="w-24 h-1 bg-cyan-600 mx-auto mb-6 sm:mb-8"></div>
-					<p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
-						Here are some of my recent projects that showcase my skills and passion for development
+		<section id="projects" className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-br from-gray-50 to-gray-100">
+			<div className="max-w-7xl mx-auto">
+				<div className="text-center mb-16 sm:mb-20">
+					<h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+						Featured Projects
+					</h2>
+					<div className="w-32 h-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto mb-8"></div>
+					<p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
+						Showcasing innovative solutions and cutting-edge development work that demonstrates 
+						technical expertise and creative problem-solving
 					</p>
 				</div>
 
-				<div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-					{projects.map((project, index) => (
-						<div key={index} className="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-							<div className="p-6 sm:p-8">
-								<div className="text-3xl sm:text-4xl mb-4 text-center">{project.image}</div>
-								<h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">{project.title}</h3>
-								<p className="text-gray-600 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">{project.description}</p>
-								
-								<div className="mb-4 sm:mb-6">
-									<div className="flex flex-wrap gap-2">
-										{project.technologies.map((tech, techIndex) => (
-											<span 
-												key={techIndex}
-												className="px-2 sm:px-3 py-1 bg-cyan-100 text-cyan-800 text-xs sm:text-sm rounded-full font-medium"
-											>
-												{tech}
-											</span>
-										))}
-									</div>
+				{projects.length === 0 ? (
+					<div className="max-w-4xl mx-auto">
+						<div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-12 sm:p-16 text-center">
+							<div className="relative mb-8">
+								<div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full blur-2xl opacity-20 animate-pulse"></div>
+								<div className="relative text-7xl sm:text-8xl">🚀</div>
+							</div>
+							
+							<h3 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+								Exciting Projects <span className="text-cyan-600">In Development</span>
+							</h3>
+							
+							<p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+								I'm currently crafting innovative solutions and building exceptional digital experiences. 
+								Each project represents a commitment to quality, innovation, and technical excellence.
+							</p>
+							
+							<div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+								<div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl p-6 border border-cyan-100">
+									<div className="text-3xl mb-3">💡</div>
+									<h4 className="font-semibold text-gray-800 mb-2">Innovation</h4>
+									<p className="text-sm text-gray-600">Cutting-edge solutions</p>
 								</div>
-								
-								<div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-									<a 
-										href={project.liveUrl}
-										className="flex-1 bg-cyan-600 text-white text-center py-2 sm:py-3 rounded-lg font-semibold hover:bg-cyan-700 transition-colors duration-300 text-sm sm:text-base"
-									>
-										Live Demo
-									</a>
-									<a 
-										href={project.githubUrl}
-										className="flex-1 border-2 border-cyan-600 text-cyan-600 text-center py-2 sm:py-3 rounded-lg font-semibold hover:bg-cyan-600 hover:text-white transition-colors duration-300 text-sm sm:text-base"
-									>
-										GitHub
-									</a>
+								<div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-100">
+									<div className="text-3xl mb-3">⚡</div>
+									<h4 className="font-semibold text-gray-800 mb-2">Performance</h4>
+									<p className="text-sm text-gray-600">Optimized & efficient</p>
+								</div>
+								<div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border border-green-100">
+									<div className="text-3xl mb-3">🎯</div>
+									<h4 className="font-semibold text-gray-800 mb-2">Precision</h4>
+									<p className="text-sm text-gray-600">Detail-oriented approach</p>
 								</div>
 							</div>
+							
+							<div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+								<span>Coming Soon</span>
+								<div className="ml-2 w-2 h-2 bg-white rounded-full animate-pulse"></div>
+							</div>
 						</div>
-					))}
-				</div>
+					</div>
+				) : (
+					<div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
+						{projects.map((project, index) => (
+							<div key={index} className="group bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+								<div className="relative overflow-hidden">
+									<div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+									<div className="p-8">
+										<div className="text-4xl mb-6 text-center transform group-hover:scale-110 transition-transform duration-300">
+											{project.image}
+										</div>
+										<h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-cyan-600 transition-colors duration-300">
+											{project.title}
+										</h3>
+										<p className="text-gray-600 mb-6 leading-relaxed">
+											{project.description}
+										</p>
+										
+										<div className="mb-6">
+											<div className="flex flex-wrap gap-2">
+												{project.technologies.map((tech, techIndex) => (
+													<span 
+														key={techIndex}
+														className="px-3 py-1.5 bg-gradient-to-r from-cyan-100 to-blue-100 text-cyan-800 text-sm rounded-full font-medium border border-cyan-200 hover:shadow-md transition-shadow duration-200"
+													>
+														{tech}
+													</span>
+												))}
+											</div>
+										</div>
+										
+										<div className="flex gap-4">
+											<a 
+												href={project.liveUrl}
+												className="flex-1 bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-center py-3 rounded-xl font-semibold hover:from-cyan-700 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
+											>
+												Live Demo
+											</a>
+											<a 
+												href={project.githubUrl}
+												className="flex-1 border-2 border-cyan-600 text-cyan-600 text-center py-3 rounded-xl font-semibold hover:bg-cyan-600 hover:text-white transition-all duration-300 hover:scale-105"
+											>
+												GitHub
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						))}
+					</div>
+				)}
 			</div>
 		</section>
 	);

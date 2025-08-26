@@ -4,9 +4,23 @@ import { useState } from 'react';
 function Nav() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    // Navigation items array to avoid repetition
+    const navItems = [
+        { label: 'Home', action: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
+        { label: 'About', action: () => scrollToSection('about') },
+        { label: 'Skills', action: () => scrollToSection('skills') },
+        { label: 'Projects', action: () => scrollToSection('projects') },
+        { label: 'Contact', action: () => scrollToSection('contact') }
+    ];
+
     const scrollToSection = (sectionId) => {
         document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
         setIsMenuOpen(false); // Close menu after clicking
+    };
+
+    const handleNavClick = (action) => {
+        action();
+        setIsMenuOpen(false); // Close mobile menu after clicking
     };
 
     const toggleMenu = () => {
@@ -16,53 +30,23 @@ function Nav() {
     return (
         <nav className="relative">
             {/* Desktop Navigation */}
-            <ul className="hidden md:flex text-md gap-7 nav-links">
-                <li>
-                    <button 
-                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                        className="hover:text-cyan-600 transition-colors duration-300 font-medium"
-                    >
-                        Home
-                    </button>
-                </li>
-                <li>
-                    <button 
-                        onClick={() => scrollToSection('about')}
-                        className="hover:text-cyan-600 transition-colors duration-300 font-medium"
-                    >
-                        About
-                    </button>
-                </li>
-                <li>
-                    <button 
-                        onClick={() => scrollToSection('skills')}
-                        className="hover:text-cyan-600 transition-colors duration-300 font-medium"
-                    >
-                        Skills
-                    </button>
-                </li>
-                <li>
-                    <button 
-                        onClick={() => scrollToSection('projects')}
-                        className="hover:text-cyan-600 transition-colors duration-300 font-medium"
-                    >
-                        Projects
-                    </button>
-                </li>
-                <li>
-                    <button 
-                        onClick={() => scrollToSection('contact')}
-                        className="hover:text-cyan-600 transition-colors duration-300 font-medium"
-                    >
-                        Contact
-                    </button>
-                </li>
+            <ul className="hidden md:flex text-base gap-8 nav-links">
+                {navItems.map((item, index) => (
+                    <li key={index}>
+                        <button 
+                            onClick={item.action}
+                            className="hover:text-cyan-600 transition-colors duration-300 font-medium cursor-pointer"
+                        >
+                            {item.label}
+                        </button>
+                    </li>
+                ))}
             </ul>
 
             {/* Mobile Menu Button */}
             <button 
                 onClick={toggleMenu}
-                className="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1"
+                className="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1 cursor-pointer"
                 aria-label="Toggle menu"
             >
                 <span className={`w-6 h-0.5 bg-gray-800 transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
@@ -75,49 +59,16 @@ function Nav() {
                 isMenuOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
             }`}>
                 <ul className="space-y-4">
-                    <li>
-                        <button 
-                            onClick={() => {
-                                window.scrollTo({ top: 0, behavior: 'smooth' });
-                                setIsMenuOpen(false);
-                            }}
-                            className="block w-full text-left hover:text-cyan-600 transition-colors duration-300 font-medium py-2"
-                        >
-                            Home
-                        </button>
-                    </li>
-                    <li>
-                        <button 
-                            onClick={() => scrollToSection('about')}
-                            className="block w-full text-left hover:text-cyan-600 transition-colors duration-300 font-medium py-2"
-                        >
-                            About
-                        </button>
-                    </li>
-                    <li>
-                        <button 
-                            onClick={() => scrollToSection('skills')}
-                            className="block w-full text-left hover:text-cyan-600 transition-colors duration-300 font-medium py-2"
-                        >
-                            Skills
-                        </button>
-                    </li>
-                    <li>
-                        <button 
-                            onClick={() => scrollToSection('projects')}
-                            className="block w-full text-left hover:text-cyan-600 transition-colors duration-300 font-medium py-2"
-                        >
-                            Projects
-                        </button>
-                    </li>
-                    <li>
-                        <button 
-                            onClick={() => scrollToSection('contact')}
-                            className="block w-full text-left hover:text-cyan-600 transition-colors duration-300 font-medium py-2"
-                        >
-                            Contact
-                        </button>
-                    </li>
+                    {navItems.map((item, index) => (
+                        <li key={index}>
+                            <button 
+                                onClick={() => handleNavClick(item.action)}
+                                className="block w-full text-left hover:text-cyan-600 transition-colors duration-300 font-medium py-2 cursor-pointer text-base"
+                            >
+                                {item.label}
+                            </button>
+                        </li>
+                    ))}
                 </ul>
             </div>
         </nav>
