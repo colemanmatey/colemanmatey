@@ -1,7 +1,18 @@
+import { useState } from "react";
+import emailjs from '@emailjs/browser';
 import Button from "../common/Button";
 import { ContactSocialIcons } from "../common/SocialIcons";
 
 function Contact() {
+	const [formData, setFormData] = useState({
+		name: '',
+		email: '',
+		subject: '',
+		message: ''
+	});
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
+
 	// Form fields array to avoid repetition
 	const formFields = [
 		{
@@ -30,10 +41,62 @@ function Contact() {
 		}
 	];
 
-	const handleSubmit = (e) => {
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setFormData(prev => ({
+			...prev,
+			[name]: value
+		}));
+	};
+
+	const resetForm = () => {
+		setFormData({
+			name: '',
+			email: '',
+			subject: '',
+			message: ''
+		});
+	};
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// Handle form submission here
-		alert("Thank you for your message! I'll get back to you soon.");
+		setIsSubmitting(true);
+		setSubmitStatus(null);
+
+		try {
+			// EmailJS configuration from environment variables
+			const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+			const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+			const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+			const yourEmail = import.meta.env.VITE_YOUR_EMAIL;
+
+			// Check if environment variables are set
+			if (!serviceId || !templateId || !publicKey || !yourEmail) {
+				throw new Error('EmailJS configuration missing. Please check your environment variables.');
+			}
+
+			// Prepare the email data
+			const templateParams = {
+				from_name: formData.name,
+				from_email: formData.email,
+				subject: formData.subject,
+				message: formData.message,
+				to_email: yourEmail,
+				reply_to: formData.email,
+			};
+
+			// Send email using EmailJS
+			await emailjs.send(serviceId, templateId, templateParams, publicKey);
+			
+			setSubmitStatus('success');
+			resetForm();
+			
+		} catch (error) {
+			console.error('Email sending failed:', error);
+			setSubmitStatus('error');
+		} finally {
+			setIsSubmitting(false);
+		}
 	};
 
 	return (
@@ -59,6 +122,32 @@ function Contact() {
 					</div>
 
 					<div className="bg-gray-800 p-8 rounded-2xl border border-gray-700 order-1 lg:order-2">
+						{/* Success Message */}
+						{submitStatus === 'success' && (
+							<div className="mb-6 p-4 bg-green-600 bg-opacity-20 border border-green-500 rounded-lg">
+								<div className="flex items-center">
+									<div className="text-green-400 mr-3">✓</div>
+									<div>
+										<h4 className="text-green-400 font-semibold">Message Sent Successfully!</h4>
+										<p className="text-green-300 text-sm">Thank you for reaching out. I'll get back to you soon!</p>
+									</div>
+								</div>
+							</div>
+						)}
+
+						{/* Error Message */}
+						{submitStatus === 'error' && (
+							<div className="mb-6 p-4 bg-red-600 bg-opacity-20 border border-red-500 rounded-lg">
+								<div className="flex items-center">
+									<div className="text-red-400 mr-3">✗</div>
+									<div>
+										<h4 className="text-red-400 font-semibold">Error Sending Message</h4>
+										<p className="text-red-300 text-sm">Please try again or contact me through social media.</p>
+									</div>
+								</div>
+							</div>
+						)}
+
 						<form onSubmit={handleSubmit} className="space-y-6">
 							{formFields.map((field, index) => (
 								<div key={index}>
@@ -67,8 +156,11 @@ function Contact() {
 										type={field.type}
 										id={field.id}
 										name={field.name}
+										value={formData[field.name]}
+										onChange={handleInputChange}
 										required={field.required}
-										className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white placeholder-gray-400 text-base"
+										disabled={isSubmitting}
+										className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white placeholder-gray-400 text-base disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
 										placeholder={field.placeholder}
 									/>
 								</div>
@@ -79,16 +171,25 @@ function Contact() {
 								<textarea 
 									id="message" 
 									name="message"
+									value={formData.message}
+									onChange={handleInputChange}
 									rows="4"
 									required
-									className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white placeholder-gray-400 resize-none text-base"
+									disabled={isSubmitting}
+									className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white placeholder-gray-400 resize-none text-base disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
 									placeholder="Tell me about your project..."
 								></textarea>
 							</div>
 							
 							<Button 
-								text="Send Message"
-								style="w-full bg-cyan-600 text-white py-3 rounded-lg font-semibold hover:bg-cyan-700 transition-colors duration-300 cursor-pointer text-base"
+								text={isSubmitting ? "Sending..." : "Send Message"}
+								type="submit"
+								disabled={isSubmitting}
+								style={`w-full py-3 rounded-lg font-semibold transition-all duration-300 cursor-pointer text-base ${
+									isSubmitting 
+										? 'bg-gray-600 text-gray-300 cursor-not-allowed' 
+										: 'bg-cyan-600 text-white hover:bg-cyan-700 hover:scale-105'
+								}`}
 							/>
 						</form>
 					</div>
