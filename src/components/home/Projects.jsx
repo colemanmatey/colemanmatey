@@ -27,12 +27,20 @@ function Projects() {
 		async function load() {
 			try {
 				const res = await fetch('/api/projects', { cache: 'no-cache' });
-				if (!res.ok) return;
+				console.log('API Response status:', res.status, res.ok);
+				if (!res.ok) {
+					console.error('API request failed with status', res.status);
+					return;
+				}
 
 				const ct = (res.headers.get('content-type') || '').toLowerCase();
-				if (!ct.includes('application/json')) return;
+				if (!ct.includes('application/json')) {
+					console.error('Invalid content type:', ct);
+					return;
+				}
 
 				const json = await res.json();
+				console.log('API response data:', json);
 				const data = Array.isArray(json)
 					? json
 					: Array.isArray(json.projects)
@@ -41,11 +49,11 @@ function Projects() {
 					? json.data
 					: [];
 
+				console.log('Normalized data:', data);
 				if (data.length > 0 && mounted) {
 					setProjects(data.map(normalize));
 				}
 			} catch (err) {
-				// eslint-disable-next-line no-console
 				console.error('Failed to load projects', err);
 			} finally {
 				if (mounted) setLoading(false);
