@@ -1,5 +1,70 @@
+import { useEffect, useState } from 'react';
+
 function Projects() {
-	const projects = [];
+	const [projects, setProjects] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		let mounted = true;
+
+		const normalize = (p) => ({
+			title: p.title || p.name || 'Untitled Project',
+			description: p.description || p.summary || '',
+			technologies: Array.isArray(p.technologies)
+				? p.technologies
+				: Array.isArray(p.tech)
+				? p.tech
+				: Array.isArray(p.stack)
+				? p.stack
+				: [],
+			liveUrl: p.liveUrl || p.url || p.link || '#',
+			githubUrl: p.githubUrl || p.repo || p.github || '#',
+			image: p.image || p.icon || '🔧',
+			status: p.status || p.state || '',
+			category: p.category || p.type || '',
+		});
+
+		async function load() {
+			try {
+				const res = await fetch('/api/projects', { cache: 'no-cache' });
+				console.log('API Response status:', res.status, res.ok);
+				if (!res.ok) {
+					console.error('API request failed with status', res.status);
+					return;
+				}
+
+				const ct = (res.headers.get('content-type') || '').toLowerCase();
+				if (!ct.includes('application/json')) {
+					console.error('Invalid content type:', ct);
+					return;
+				}
+
+				const json = await res.json();
+				console.log('API response data:', json);
+				const data = Array.isArray(json)
+					? json
+					: Array.isArray(json.projects)
+					? json.projects
+					: Array.isArray(json.data)
+					? json.data
+					: [];
+
+				console.log('Normalized data:', data);
+				if (data.length > 0 && mounted) {
+					setProjects(data.map(normalize));
+				}
+			} catch (err) {
+				console.error('Failed to load projects', err);
+			} finally {
+				if (mounted) setLoading(false);
+			}
+		}
+
+		load();
+		return () => {
+			mounted = false;
+		};
+	}, []);
 
 	return (
 		<section id="projects" className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-br from-gray-50 to-gray-100">
@@ -61,6 +126,16 @@ function Projects() {
 						{projects.map((project, index) => (
 							<div key={index} className="group bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
 								<div className="relative overflow-hidden">
+									{project.status ? (
+										<span className="absolute top-4 right-4 inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-cyan-50 text-cyan-700 border border-cyan-100">
+											{project.status}
+										</span>
+									) : null}
+									{project.category ? (
+										<div className="absolute top-4 left-4 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800 border border-gray-200">
+											{project.category}
+										</div>
+									) : null}
 									<div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 									<div className="p-8">
 										<div className="text-4xl mb-6 text-center transform group-hover:scale-110 transition-transform duration-300">
@@ -86,20 +161,12 @@ function Projects() {
 											</div>
 										</div>
 										
-										<div className="flex gap-4">
-											<a 
-												href={project.liveUrl}
-												className="flex-1 bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-center py-3 rounded-xl font-semibold hover:from-cyan-700 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
-											>
-												Live Demo
-											</a>
-											<a 
-												href={project.githubUrl}
-												className="flex-1 border-2 border-cyan-600 text-cyan-600 text-center py-3 rounded-xl font-semibold hover:bg-cyan-600 hover:text-white transition-all duration-300 hover:scale-105"
-											>
-												GitHub
-											</a>
-										</div>
+										<a 
+											href={project.githubUrl}
+											className="inline-block bg-gradient-to-r from-cyan-600 to-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-cyan-700 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
+										>
+											GitHub
+										</a>
 									</div>
 								</div>
 							</div>
