@@ -34,7 +34,7 @@ function Projects() {
 				}
 
 
-				const res = await fetch(`${API_URL}/${API_VERSION}/projects`, { cache: 'no-cache' });
+				const res = await fetch(`${API_URL}/api/${API_VERSION}/projects`, { cache: 'no-cache' });
 				console.log('API Response status:', res.status, res.ok);
 				if (!res.ok) {
 					console.error('API request failed with status', res.status);
