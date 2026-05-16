@@ -26,7 +26,7 @@ function Projects() {
 
 		async function load() {
 			try {
-				const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects`, { cache: 'no-cache' });
+				const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/projects`, { cache: 'no-cache' });
 				console.log('API Response status:', res.status, res.ok);
 				if (!res.ok) {
 					console.error('API request failed with status', res.status);
